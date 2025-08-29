@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/tasks/<int:pk>/', TaskDetail.as_view(), name="task-detail"),
     path('api/tasks/<int:pk>/complete/', mark_task_complete, name="task-complete"),
     path('api/tasks/<int:pk>/incomplete/', mark_task_incomplete, name="task-incomplete"),
+    path('api/', include('tasks.urls')), 
 ]
 
