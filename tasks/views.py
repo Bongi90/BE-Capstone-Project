@@ -1,4 +1,6 @@
 from rest_framework import generics, permissions
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.contrib.auth.models import User
 from .models import Task
 from .serializers import TaskSerializer, UserSerializer
@@ -23,9 +25,6 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
 
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
 @api_view(['POST'])
 def mark_task_complete(request, pk):
     try:
@@ -36,6 +35,7 @@ def mark_task_complete(request, pk):
     except Task.DoesNotExist:
         return Response({"error": "Task not found"}, status=404)
 
+
 @api_view(['POST'])
 def mark_task_incomplete(request, pk):
     try:
@@ -45,4 +45,3 @@ def mark_task_incomplete(request, pk):
         return Response({"message": "Task marked as incomplete!"})
     except Task.DoesNotExist:
         return Response({"error": "Task not found"}, status=404)
-
